@@ -158,6 +158,7 @@ enum TW_FSTAB_FLAGS {
 	TWFLAG_FORMATTABLE,
 	TWFLAG_RESIZE,
 	TWFLAG_KEYDIRECTORY,
+	TWFLAG_ADOPTED_MOUNT_DELAY,
 };
 
 /* Flags without a trailing '=' are considered dual format flags and can be
@@ -202,6 +203,7 @@ const struct flag_list tw_flags[] = {
 	{ "formattable",            TWFLAG_FORMATTABLE },
 	{ "resize",                 TWFLAG_RESIZE },
 	{ "keydirectory=",          TWFLAG_KEYDIRECTORY },
+	{ "adopted_mount_delay=",   TWFLAG_ADOPTED_MOUNT_DELAY },
 	{ 0,                        0 },
 };
 
@@ -266,6 +268,7 @@ TWPartition::TWPartition() {
 	Adopted_GUID = "";
 	SlotSelect = false;
 	Key_Directory = "";
+	Adopted_Mount_Delay = 0;
 }
 
 TWPartition::~TWPartition(void) {
@@ -922,6 +925,9 @@ void TWPartition::Apply_TW_Flag(const unsigned flag, const char* str, const bool
 			break;
 		case TWFLAG_ALTDEVICE:
 			Alternate_Block_Device = str;
+			break;
+		case TWFLAG_ADOPTED_MOUNT_DELAY:
+			Adopted_Mount_Delay = atoi(str);
 			break;
 		case TWFLAG_KEYDIRECTORY:
 			Key_Directory = str;
